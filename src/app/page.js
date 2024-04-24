@@ -18,14 +18,14 @@ function App() {
 
   const handleDownload = async () => {
     try {
-      setShowDialog(true); // Show the dialog box
+      setShowDialog(true);
       setTimeout(() => {
-        setShowDialog(false); // Close the dialog box after 6 seconds
+        setShowDialog(false);
       }, 6000);
 
       const response = await axios.post('https://fedaf3a6-274a-4de3-b0ae-b68bf73653a5-00-31b7ivstn9r5e.pike.replit.dev/download', { videoURL }, { responseType: 'blob' });
 
-      const randomString = generateRandomString(10); // Generate a random string of length 10
+      const randomString = generateRandomString(10);
       const downloadUrl = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement('a');
       link.href = downloadUrl;
@@ -34,7 +34,7 @@ function App() {
       link.click();
       link.remove();
     } catch (error) {
-      setShowDialog(false); // Close the dialog box if an error occurs
+      setShowDialog(false);
       setErrorMessage('Failed to download video');
       console.error('Error downloading video:', error);
     }
@@ -42,25 +42,29 @@ function App() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <h1 className="text-3xl font-bold mb-4">YouTube Video Downloader</h1>
-      <div className="mb-4">
+      <h1 className="text-4xl font-bold mb-4 text-blue-500">Snowman vidget</h1>
+      <h2 className="text-2xl font-semibold mb-4 text-red-400">YT Video Downloader</h2>
+      <p className="text-sm mb-8 text-gray-500">Created by Robin</p>
+      
+      <div className="mb-6 w-full max-w-md">
         <input
-          className="border border-gray-300 p-2 rounded-md w-96"
+          className="border border-gray-300 p-2 rounded-md w-full"
           type="text"
           placeholder="Enter YouTube URL"
           value={videoURL}
           onChange={(e) => setVideoURL(e.target.value)}
         />
       </div>
+
       <button
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded"
         onClick={handleDownload}
       >
         Download
       </button>
+
       {errorMessage && <p className="text-red-500 mt-4">{errorMessage}</p>}
       
-      {/* Dialog box */}
       {showDialog && (
         <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-6 rounded-lg text-center">
@@ -68,7 +72,7 @@ function App() {
             <button
               className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
               onClick={() => {
-                setShowDialog(false); // Close the dialog box when close button is clicked
+                setShowDialog(false);
               }}
             >
               Close
@@ -76,6 +80,7 @@ function App() {
           </div>
         </div>
       )}
+
     </div>
   );
 }
